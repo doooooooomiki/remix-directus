@@ -1,0 +1,11 @@
+remix.localhost {
+  reverse_proxy remix:3030  {
+    header_down Strict-Transport-Security max-age=31536000;
+   }
+}
+
+directus.localhost {
+  reverse_proxy directus:8055  {
+    header_down Strict-Transport-Security max-age=31536000;
+   }
+}
