@@ -6,6 +6,7 @@ const { getSession, commitSession, destroySession } =
       name: '__session',
       maxAge: 604_800,
       path: '/',
+      secrets: ['s3cret1'],
     },
   });
 export { getSession, commitSession, destroySession };

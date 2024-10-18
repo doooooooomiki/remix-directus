@@ -1,4 +1,4 @@
-import { createDirectus, rest } from '@directus/sdk';
+import { createDirectus, rest, readItem } from '@directus/sdk';
 
 type Global = {
   title: string;
@@ -30,6 +30,10 @@ type Schema = {
   pages: Page[];
 };
 
-const directus = createDirectus<Schema>('http://directus:8055').with(rest());
+const directus = createDirectus<Schema>('http://localhost:8055').with(rest());
+
+export async function getPostById(id: string, version?: string) {
+  return await directus.request(readItem('posts', id, { version }));
+}
 
 export default directus;
