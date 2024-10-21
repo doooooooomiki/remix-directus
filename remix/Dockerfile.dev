@@ -1,0 +1,9 @@
+FROM node:alpine
+WORKDIR /remixapp
+ADD . .
+RUN npm install
+
+ENV PORT=3030
+ENV NODE_ENV=development
+CMD ["npm", "run", "dev"]
+

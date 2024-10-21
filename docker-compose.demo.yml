@@ -1,0 +1,45 @@
+services:
+  directus:
+    container_name: directus
+    image: directus/directus:11.1.1
+    restart: unless-stopped
+    volumes:
+      - ./directus/database:/directus/database
+      - ./directus/uploads:/directus/uploads
+      - ./directus/extensions:/directus/extensions
+    environment:
+      SECRET: 'replace-with-secure-random-value'
+      ADMIN_EMAIL: 'admin@example.com'
+      ADMIN_PASSWORD: 'd1r3ctu5'
+      DB_CLIENT: 'sqlite3'
+      DB_FILENAME: '/directus/database/data.db'
+      WEBSOCKETS_ENABLED: 'true'
+
+  remix:
+    container_name: remix
+    build:
+      context: ./remix
+      dockerfile: Dockerfile.prod
+    restart: unless-stopped
+
+  caddy:
+    container_name: caddy
+    image: caddy:2.8-alpine
+    restart: unless-stopped
+    environment:
+      DOMAIN1: http://localhost:8080
+      DOMAIN2: http://localhost:8443
+    ports:
+      - '8080:8080'
+      - '8443:8443'
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+      - caddy_data:/data
+      - caddy_config:/config
+    depends_on:
+      - directus
+      - remix
+
+volumes:
+  caddy_data:
+  caddy_config:
