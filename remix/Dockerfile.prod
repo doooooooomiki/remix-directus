@@ -11,7 +11,7 @@
 # --> 430MB vs 214MB
 
 # base node image
-FROM node:23-alpine as base
+FROM node:23-alpine AS base
 
 # set for base and all layer that inherit from it
 ENV NODE_ENV=production
@@ -23,7 +23,7 @@ ARG RELEASE_PACKAGE
 ENV RELEASE_PACKAGE=$RELEASE_PACKAGE
 
 # Install all node_modules, including dev
-FROM base as deps
+FROM base AS deps
 
 WORKDIR /remixapp
 
@@ -31,7 +31,7 @@ ADD package.json package-lock.json ./
 RUN npm install --include=dev
 
 # Setup production node_modules
-FROM base as production-deps
+FROM base AS production-deps
 
 WORKDIR /remixapp
 
@@ -40,7 +40,7 @@ ADD package.json package-lock.json ./
 RUN npm prune 
 
 # Build the app
-FROM base as build
+FROM base AS build
 
 WORKDIR /remixapp
 
