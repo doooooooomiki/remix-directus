@@ -3,7 +3,7 @@ import { readSingleton } from '@directus/sdk';
 import { useLoaderData } from '@remix-run/react';
 
 export const loader = async () => {
-  const global = await directus.request(readSingleton('Global'));
+  const global = await directus.request(readSingleton('global'));
   return global;
 };
 
