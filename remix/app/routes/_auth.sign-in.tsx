@@ -15,13 +15,9 @@ export async function action({ request }: ActionFunctionArgs) {
     headers: { 'Content-Type': 'application/json' },
   });
 
-  const directusSessionToken = res.headers
-    .getSetCookie()
-    .find((s) => s.startsWith('directus_session_token'));
-
   return redirect(`/`, {
     headers: {
-      'Set-Cookie': directusSessionToken as string,
+      'Set-Cookie': res.headers.get('set-cookie') as string,
     },
   });
 }
