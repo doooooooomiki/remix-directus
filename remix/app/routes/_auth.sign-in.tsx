@@ -5,7 +5,7 @@ import type { ActionFunctionArgs } from '@remix-run/node';
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
 
-  const res = await fetch('http://directus:8055/auth/login', {
+  const response = await fetch('http://directus:8055/auth/login', {
     method: 'POST',
     body: JSON.stringify({
       email: String(formData.get('email')),
@@ -15,14 +15,19 @@ export async function action({ request }: ActionFunctionArgs) {
     headers: { 'Content-Type': 'application/json' },
   });
 
-  return redirect(`/`, {
+  return redirect('/me', {
     headers: {
-      'Set-Cookie': res.headers.get('set-cookie') as string,
+      // why not res.headers.getSetCookie()?
+      // https://developer.mozilla.org/en-US/docs/Web/API/Headers/getSetCookie
+      // TypeError: getSetCookie is not a function
+      // https://github.com/remix-run/remix/issues/9324'
+      // https://github.com/remix-run/remix/blob/main/CHANGELOG.md#single-fetch-unstable
+      'Set-Cookie': response.headers.get('set-cookie') as string,
     },
   });
 }
 
-export default function Index() {
+export default function SignIn() {
   return (
     <div>
       <Form method="post">
