@@ -16,5 +16,5 @@
 }
 
 www.{$DOMAIN3} {
-  redir https://{$DOMAIN3}
+  redir {$DOMAIN3}
 }
