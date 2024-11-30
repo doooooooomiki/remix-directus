@@ -9,3 +9,8 @@
     header_down Strict-Transport-Security max-age=31536000;
   }
 }
+
+{$DOMAIN3} {
+  root *  /www/html
+	file_server
+}

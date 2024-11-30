@@ -29,13 +29,16 @@ services:
     environment:
       DOMAIN1: http://localhost:8080
       DOMAIN2: http://localhost:8443
+      DOMAIN3: http://localhost:8088
     ports:
       - '8080:8080'
       - '8443:8443'
+      - '8088:8088'
     volumes:
       - ./caddy/Caddyfile:/etc/caddy/Caddyfile
       - caddy_data:/data
       - caddy_config:/config
+      - ./lasstliebeda/index.html:/www/html/index.html
     depends_on:
       - directus
       - remix

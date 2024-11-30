@@ -12,7 +12,9 @@ export async function action({ request }: ActionFunctionArgs) {
       password: String(formData.get('password')),
       mode: 'session',
     }),
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+    },
   });
 
   return redirect('/me', {

@@ -30,12 +30,14 @@ services:
     environment:
       DOMAIN1: cottoncottage.shop
       DOMAIN2: edit.cottoncottage.shop
+      DOMAIN3: lasstliebeda.de
     ports:
       - '443:443'
     volumes:
       - ./caddy/Caddyfile:/etc/caddy/Caddyfile
       - caddy_data:/data
       - caddy_config:/config
+      - ./lasstliebeda/index.html:/www/html/index.html
     depends_on:
       - directus
       - remix
