@@ -14,3 +14,7 @@
   root *  /www/html
 	file_server
 }
+
+www.{$DOMAIN3} {
+  redir https://{$DOMAIN3}
+}
