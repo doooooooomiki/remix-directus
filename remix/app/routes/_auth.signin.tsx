@@ -1,6 +1,14 @@
 import { Form } from '@remix-run/react';
 import { redirect } from '@remix-run/node';
-import type { ActionFunctionArgs } from '@remix-run/node';
+import type { ActionFunctionArgs, LoaderFunctionArgs } from '@remix-run/node';
+
+export const loader = async ({ request }: LoaderFunctionArgs) => {
+  console.info('request', request);
+  console.info('request cookie', request.headers.get('cookie'));
+  console.info('request headers', request.headers);
+
+  return request;
+};
 
 export async function action({ request }: ActionFunctionArgs) {
   const formData = await request.formData();
@@ -29,7 +37,7 @@ export async function action({ request }: ActionFunctionArgs) {
   });
 }
 
-export default function SignIn() {
+export default function Signin() {
   return (
     <div>
       <Form method="post">
@@ -43,6 +51,11 @@ export default function SignIn() {
           <button type="submit">Sign in</button>
         </div>
       </Form>
+      <div>
+        <a href="https://edit.cottoncottage.shop/auth/login/google?redirect=https://cottoncottage.shop/signin">
+          Continue with Google
+        </a>
+      </div>
     </div>
   );
 }

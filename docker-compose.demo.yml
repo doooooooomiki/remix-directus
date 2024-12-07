@@ -16,17 +16,21 @@ services:
       dockerfile: Dockerfile.prod
     restart: unless-stopped
 
+  nuxt:
+    container_name: nuxt
+    env_file: ./nuxt/.env
+    build:
+      context: ./nuxt
+      dockerfile: Dockerfile
+    restart: unless-stopped
+
   caddy:
     container_name: caddy
     image: caddy:2.8-alpine
     restart: unless-stopped
-    environment:
-      DOMAIN1: localhost:8080
-      DOMAIN2: localhost:8443
-      DOMAIN3: localhost:8088
+    env_file: ./caddy/.env
     ports:
       - '8080:8080'
-      - '8443:8443'
       - '8088:8088'
     volumes:
       - ./caddy/Caddyfile:/etc/caddy/Caddyfile
@@ -36,6 +40,7 @@ services:
     depends_on:
       - directus
       - remix
+      - nuxt
 
 volumes:
   caddy_data:

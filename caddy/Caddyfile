@@ -1,3 +1,7 @@
+# www.{$DOMAIN1} {
+#   redir https://{$DOMAIN1}{uri} permanent
+# }
+
 {$DOMAIN1} {
   reverse_proxy remix:3030 {
     header_down Strict-Transport-Security max-age=31536000;
@@ -10,11 +14,17 @@
   }
 }
 
+# www.{$DOMAIN3} {
+#   redir https://{$DOMAIN3} permanent
+# }
+
 {$DOMAIN3} {
   root *  /www/html
-	file_server
+  file_server
 }
 
-www.{$DOMAIN3} {
-  redir {$DOMAIN3}
+{$DOMAIN4} {
+  reverse_proxy nuxt:3000 {
+    header_down Strict-Transport-Security max-age=31536000;
+  }
 }
