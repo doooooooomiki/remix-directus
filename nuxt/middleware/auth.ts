@@ -1,12 +1,13 @@
-export default defineNuxtRouteMiddleware(async (to, from) => {
-  console.info({ from });
-  console.info({ to });
-  // Get all request headers
-  const headers = useRequestHeaders();
-  console.info({ headers });
+export default defineNuxtRouteMiddleware(async () => {
+  const response = await $fetch
+    .raw<Record<any, string>>('/api/auth/refresh', {
+      method: 'POST',
+      credentials: 'include',
+      headers: useRequestHeaders(),
+    })
+    .catch((e) => console.error(e));
 
-  // const sessionCookie = useCookie('_sp_id.1fff');
-  // if (sessionCookie.value) {
-  //   return navigateTo('/me');
-  // }
+  if (response?.ok) {
+    return navigateTo('/me');
+  }
 });

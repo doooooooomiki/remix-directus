@@ -9,7 +9,7 @@ definePageMeta({
     <h1>Signin</h1>
     <div>
       <a
-        href="https://edit.cottoncottage.shop/auth/login/google?redirect=https://campus.cottoncottage.shop/signin"
+        href="https://edit.cottoncottage.shop/auth/login/google?redirect=https://college.cottoncottage.shop/signin"
       >
         Continue with Google
       </a>
